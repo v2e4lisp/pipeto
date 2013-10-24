@@ -1,1 +1,5 @@
 *pyc
+tmp*
+tmp/
+dist
+*egg-info
