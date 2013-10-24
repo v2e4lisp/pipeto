@@ -36,10 +36,13 @@ class _To(object):
 def pipe(arg):
     return _Pipe(arg)
 
+
 def to(fn):
     return _To(fn)
 
+
 def compose(fn):
     return _Composer(fn)
+
 
 def done(*arg, **kwargs): pass
