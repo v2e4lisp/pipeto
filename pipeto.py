@@ -1,3 +1,24 @@
+"""
+Command line pipe style port to python
+
+author: wenjun.yan
+email : mylastnameisyan@gmail.com
+
+API:
+    - pipe
+      pipe(1) | str | list | done # ['1']
+
+    - done
+
+    - to
+      1 | to(str) | to(list) # ['1']
+
+    - compose
+      strlist = compose(str) | list
+      strlist(1) # ['1']
+"""
+
+
 class _Composer(object):
     def __init__(self, fn):
         self.fns = [fn]
@@ -46,3 +67,4 @@ def compose(fn):
 
 
 def done(*arg, **kwargs): pass
+
