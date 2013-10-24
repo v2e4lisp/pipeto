@@ -19,7 +19,7 @@ get the actural value out of pipable object
 * `to(fn)`  
 pass the args before to function `fn`and get the return value. The difference between `pipe` and `to` : 
 The general pattern for `pipe` is `pipe(arg) | fn1 | fn2 | fn3 | done`.  
-And for `to` is `arg | to(fn1) | to(fn2) | to(fn3)`. (No `done` is need!)
+And for `to` is `arg | to(fn1) | to(fn2) | to(fn3)`. (No `done` is need here!)  
 @param : fn {function}
 
 * `compose(fn)`
