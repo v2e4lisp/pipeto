@@ -15,7 +15,7 @@ if __name__ == '__main__':
         author = "Yan Wenjun",
         author_email = "mylastnameisyan@gmail.com",
         license = 'MIT',
-        url = 'https://github.com/v2e4lisp/pipeto'
+        url = 'https://github.com/v2e4lisp/pipeto',
         py_modules = ["pipeto"],
         classifiers = [
             'License :: OSI Approved :: MIT License',
