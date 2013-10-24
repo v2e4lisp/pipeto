@@ -36,9 +36,15 @@ def minus(x): return 0 - x
 
 def double(x): return x * 2
 
- 2 | to(add1) | to(double) | to(minus) # == minus(double(add1(2)))
- pipe(2) | add1 | done # == add1(2)
- pipe(2) | add1 | double | minus | done # == minus(double(add1(2)))
- (compose(add1) | double | minus)(2) # == minus(double(add1(2)))
- pipe(3) | add1 | minus | double | done # == double(minus(add1(3)))
+# to
+2 | to(add1) | to(double) | to(minus) # == minus(double(add1(2)))
+
+# pipe
+pipe(2) | add1 | done # == add1(2)
+pipe(2) | add1 | double | minus | done # == minus(double(add1(2)))
+pipe(3) | add1 | minus | double | done # == double(minus(add1(3)))
+
+# compose
+newfn = compose(add1) | double | minus
+newfn(2) # == minus(double(add1(2)))
 ```
