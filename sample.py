@@ -1,4 +1,11 @@
+import operator as op
 from pipeto import *
+
+inc = partial(op.add) | 1
+double = partial(op.mul) | 2
+
+print pipe(1) | double | inc | double | inc | done
+print pipe(1) | inc | inc | inc | double | done
 
 def add1(x): return x + 1
 
