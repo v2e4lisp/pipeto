@@ -1,5 +1,7 @@
 # linux pipe style port to python
 
+code like this: `pipe(1) | float | str | list | done` !
+
 [![Build Status](https://travis-ci.org/v2e4lisp/pipeto.png)](https://travis-ci.org/v2e4lisp/pipeto)
 tested on 2.7, 3.2, 3.3
 
@@ -40,7 +42,8 @@ def double(x): return x * 2
 2 | to(add1) | to(double) | to(minus) # == minus(double(add1(2)))
 
 # pipe
-pipe(2) | add1 | done # == add1(2)
+pipe(1) | float | str | list | done    # == ['1', '.', '0']
+pipe(2) | add1 | done                  # == add1(2)
 pipe(2) | add1 | double | minus | done # == minus(double(add1(2)))
 pipe(3) | add1 | minus | double | done # == double(minus(add1(3)))
 
