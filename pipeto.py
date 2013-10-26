@@ -15,20 +15,6 @@ API:
     - done(arg)
       `done` is the end of a pipe.  Get result out of Pipe object.
 
-    - to(fn)
-      yet another way to pipe args to functions. no need to pipe to `done`.
-      `pipable` is an alias of `to`, in case you may want to use it as a
-      decorator.
-      @param: fn {callable}
-
-      e.g. :
-      1 | to(str) | to(list) # ['1']
-
-      @pipable
-      def inc(x):
-          return x + 1
-      1 | inc # 2
-
     - compose(fn)
       use pipe to compose functions. `composalbe` is an alias of `compose`,
       in case you may want to use it as a decorator.
@@ -49,14 +35,13 @@ API:
 
       e.g.:
       def isum(*args): return sum(args)
-      sum6 = isum | partial(1) | partial(2) | partial(3)
+      sum6 = partial(sum) | 1 | 2 | 3
       sum6(4) # 10
 
       mapinc = map | partial(lambda x: x+1)
       # [2,3,4]
       mapinc([1,2,3])
       pipe([1,2,3]) | mapinc | done
-      [1,2,3] | to(mapinc)
 
 """
 
@@ -79,18 +64,14 @@ class _Compose(object):
 
 
 class _Partial(object):
-    def __init__(self, *args, **kwargs):
-        self.fn = None
-        self.args = list(args)
-        self.kwargs = kwargs
-
-    def __ror__(self, fn):
+    def __init__(self, fn):
         self.fn = fn
-        return self
+        self.args = []
+        self.kwargs = {}
 
-    def __or__(self, part):
-        self.args.extend(part.args)
-        self.kwargs.update(part.kwargs)
+    def __or__(self, *args, **kwargs):
+        self.args.extend(list(args))
+        self.kwargs.update(kwargs)
         return self
 
     def __call__(self, *args, **kwargs):
@@ -110,32 +91,12 @@ class _Pipe(object):
         return self
 
 
-class _To(object):
-    def __init__(self, fn):
-        self.fn = fn
-
-    def __ror__(self, arg):
-        return self.fn(arg)
-
-    def __call__(self, arg):
-        return self.fn(arg)
-
-
 def pipe(arg):
-    if isinstance(arg, _Pipe):
-        return arg
     return _Pipe(arg)
 
 
 def done(arg):
     return arg
-
-
-def to(fn):
-    if isinstance(fn, _To):
-        return fn
-    return _To(fn)
-pipable = to
 
 
 def compose(fn):
@@ -145,5 +106,8 @@ def compose(fn):
 composalbe = compose
 
 
-def partial(*args, **kwargs):
-    return _Partial(*args, **kwargs)
+def partial(fn):
+    if isinstance(fn, _Partial):
+        return fn
+    return _Partial(fn)
+partialable = partial

@@ -17,13 +17,6 @@ class TestPipeto(unittest.TestCase):
             self.true(pipe(arg) | double | done == double(arg))
             self.true(pipe(arg) | double | inc | neg | done ==  neg(inc(double(arg))))
 
-    def test_to(self):
-        for i in range(1, 100):
-            arg = randint(1, 1000000)
-            self.true(arg | to(inc) == inc(arg))
-            self.true(arg | to(inc) | to(double) == double(inc(arg)))
-            self.true(arg | to(inc) | to(double) | to(neg) == neg(double(inc(arg))))
-
     def test_compose(self):
         fn = compose(inc) | double | neg
         for i in range(1, 100):
