@@ -5,11 +5,9 @@ author: wenjun.yan
 email : mylastnameisyan@gmail.com
 
 API:
-    - pipe(fn)
-      pipe arguments to functions. pipe to `done` to get the result
-      @params: args {mixed}
-      if multiple arguments is given pipe will treat them as list
-      and pass to the next function
+    - pipe(arg)
+      pipe the argument to functions. pipe to `done` to get the result
+      @param: arg {mixed}
 
       e.g. :
       pipe(1) | str | list | done # ['1']
@@ -57,7 +55,7 @@ API:
       mapinc = map | partial(lambda x: x+1)
       # [2,3,4]
       mapinc([1,2,3])
-      pipe(1,2,3) | mapinc | done
+      pipe([1,2,3]) | mapinc | done
       [1,2,3] | to(mapinc)
 
 """
@@ -123,14 +121,10 @@ class _To(object):
         return self.fn(arg)
 
 
-def pipe(*args):
-    if len(args) > 1:
-        args = list(args)
-    else:
-        args = args[0]
-    if isinstance(args, _Pipe):
-        return args
-    return _Pipe(args)
+def pipe(arg):
+    if isinstance(arg, _Pipe):
+        return arg
+    return _Pipe(arg)
 
 
 def done(arg):
