@@ -15,7 +15,7 @@ pip install pipeto
 generate a pipable object  
 @param : arg {mixed}
 
-* `done(*args, **kwargs)`
+* `done(*args, **kwargs)`  
 get the actural value out of pipable object
 
 * `compose(fn)`  
