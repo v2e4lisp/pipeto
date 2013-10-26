@@ -123,6 +123,8 @@ class _To(object):
 def pipe(*args):
     if len(args) > 1:
         args = list(args)
+    else:
+        args = args[0]
     if isinstance(args, _Pipe):
         return args
     return _Pipe(args)
@@ -148,4 +150,3 @@ composalbe = compose
 
 def partial(*args, **kwargs):
     return _Partial(*args, **kwargs)
-
