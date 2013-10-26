@@ -67,7 +67,10 @@ class _Compose(object):
         self.fns = [fn]
 
     def __or__(self, fn):
-        self.fns.append(fn)
+        if isinstance(fn, _Compose):
+            self.fns.extend(fn.fns)
+        else:
+            self.fns.append(fn)
         return self
 
     def __call__(self, *args, **kwargs):
