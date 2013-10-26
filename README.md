@@ -11,43 +11,39 @@ pip install pipeto
 ```
 
 ## API
-* `pipe(arg)`   
-generate a pipable object   
+* `pipe(arg)`
+generate a pipable object
+
 @param : arg {mixed}
 
-* `done(*args, **kwargs)`  
+* `done(*args, **kwargs)`
 get the actural value out of pipable object
 
-* `to(fn)`  
-pass the args before to function `fn`and get the return value. The difference between `pipe` and `to` : 
-The general pattern for `pipe` is `pipe(arg) | fn1 | fn2 | fn3 | done`.  
-And for `to` is `arg | to(fn1) | to(fn2) | to(fn3)`. (No `done` is need here!)  
-@param : fn {function}
-
 * `compose(fn)`
-compose functions.  
-@param : fn {function}
+compose functions.
+
+@param : fn {callable}
+
+* `partial(fn)`
+make a function a partial application.
+
+@param : fn {callable}
 
 ## example
 ```python
 from pipeto import *
+import operation as op
 
-def add1(x): return x + 1
-
-def minus(x): return 0 - x
-
-def double(x): return x * 2
-
-# to
-2 | to(add1) | to(double) | to(minus) # == minus(double(add1(2)))
+# partial
+inc = partial(op.add) | 1
+double = partial(op.mul) | 2
 
 # pipe
 pipe(1) | float | str | list | done    # == ['1', '.', '0']
-pipe(2) | add1 | done                  # == add1(2)
-pipe(2) | add1 | double | minus | done # == minus(double(add1(2)))
-pipe(3) | add1 | minus | double | done # == double(minus(add1(3)))
+pipe(2) | inc | done                   # == inc(2)
+pipe(2) | inc | double | done          # == double(inc(2))
 
 # compose
-newfn = compose(add1) | double | minus
-newfn(2) # == minus(double(add1(2)))
+newfn = compose(inc) | double
+newfn(2) # == double(inc(2))
 ```
