@@ -1,8 +1,11 @@
 import operator as op
 from pipeto import *
 
-inc = partial(op.add) | 1
-double = partial(op.mul) | 2
+inc = op.add | partial(1)
+double = op.mul | partial(2)
+incdouble = pipable(compose(inc) | double)
+
+print 10 | incdouble
 
 print pipe(1) | double | inc | double | inc | done
 print pipe(1) | inc | inc | inc | double | done
