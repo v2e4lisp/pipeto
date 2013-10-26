@@ -7,7 +7,9 @@ email : mylastnameisyan@gmail.com
 API:
     - pipe(fn)
       pipe arguments to functions. pipe to `done` to get the result
-      @param: fn {callable}
+      @params: args {mixed}
+      if multiple arguments is given pipe will treat them as list
+      and pass to the next function
 
       e.g. :
       pipe(1) | str | list | done # ['1']
@@ -16,31 +18,47 @@ API:
       `done` is the end of a pipe.  Get result out of Pipe object.
 
     - to(fn)
-      yet another way to pipe args to functions. no need to pipe to `done`
+      yet another way to pipe args to functions. no need to pipe to `done`.
+      `pipable` is an alias of `to`, in case you may want to use it as a
+      decorator.
       @param: fn {callable}
 
       e.g. :
       1 | to(str) | to(list) # ['1']
 
+      @pipable
+      def inc(x):
+          return x + 1
+      1 | inc # 2
+
     - compose(fn)
-      use pipe to compose functions
+      use pipe to compose functions. `composalbe` is an alias of `compose`,
+      in case you may want to use it as a decorator.
       @param: fn {callable}
 
       e.g. :
       chars = compose(str) | list
       chars(123) # ["1", "2", "3"]
 
+      @composable
+      def tostr(x):
+          return str(x)
+      chars = tostr | list
+
     - partial(fn)
       use pipe to make a function a partial application.
       @param: fn {callable}
 
       e.g.:
-      def isum(*args): return sum(arg)
+      def isum(*args): return sum(args)
       sum6 = isum | partial(1) | partial(2) | partial(3)
       sum6(4) # 10
 
       mapinc = map | partial(lambda x: x+1)
-      mapinc([1,2,3]) # [2,3,4]
+      # [2,3,4]
+      mapinc([1,2,3])
+      pipe(1,2,3) | mapinc | done
+      [1,2,3] | to(mapinc)
 
 """
 
@@ -102,10 +120,12 @@ class _To(object):
         return self.fn(arg)
 
 
-def pipe(arg):
-    if isinstance(arg, _Pipe):
-        return arg
-    return _Pipe(arg)
+def pipe(*args):
+    if len(args) > 1:
+        args = list(args)
+    if isinstance(args, _Pipe):
+        return args
+    return _Pipe(args)
 
 
 def done(arg):
