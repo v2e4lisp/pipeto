@@ -11,22 +11,19 @@ pip install pipeto
 ```
 
 ## API
-* `pipe(arg)`
-generate a pipable object
-
+* `pipe(arg)`  
+generate a pipable object  
 @param : arg {mixed}
 
-* `done(*args, **kwargs)`
+* `done(*args, **kwargs)`  
 get the actural value out of pipable object
 
-* `compose(fn)`
-compose functions.
-
+* `compose(fn)`  
+compose functions.  
 @param : fn {callable}
 
-* `partial(fn)`
-make a function a partial application.
-
+* `partial(fn)`  
+make a function a partial application.  
 @param : fn {callable}
 
 ## example
