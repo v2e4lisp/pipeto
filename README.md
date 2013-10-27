@@ -20,12 +20,12 @@ get the actural value out of pipable object
 
 * `compose(fn)`  
 Compose functions. Can be used as a decorator.  
-@alias : composable
+@alias : composable  
 @param : fn {callable}
 
 * `partial(fn)`  
 make a function a partial application. Can be used as a decorator if you like.  
-@alias : partialable
+@alias : partialable  
 @param : fn {callable}
 
 ## example
