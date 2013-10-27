@@ -9,7 +9,7 @@ def readme():
 if __name__ == '__main__':
     setup(
         name = 'pipeto',
-        version = '0.0.1',
+        version = '0.1.1',
         description = 'linux pipe style for python',
         long_description = readme(),
         author = "Yan Wenjun",
