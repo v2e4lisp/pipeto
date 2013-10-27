@@ -31,7 +31,7 @@ make a function a partial application. Can be used as a decorator if you like.
 ## example
 ```python
 from pipeto import *
-import operation as op
+import operator as op
 
 # partial
 inc = partial(op.add) | 1
