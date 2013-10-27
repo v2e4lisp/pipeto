@@ -12,18 +12,20 @@ pip install pipeto
 
 ## API
 * `pipe(arg)`  
-generate a pipable object  
+generate a pipable object pipe to next function.  
 @param : arg {mixed}
 
-* `done(*args, **kwargs)`  
+* `done(arg)`  
 get the actural value out of pipable object
 
 * `compose(fn)`  
-compose functions.  
+Compose functions. Can be used as a decorator.  
+@alias : composable
 @param : fn {callable}
 
 * `partial(fn)`  
-make a function a partial application.  
+make a function a partial application. Can be used as a decorator if you like.  
+@alias : partialable
 @param : fn {callable}
 
 ## example
@@ -34,11 +36,13 @@ import operation as op
 # partial
 inc = partial(op.add) | 1
 double = partial(op.mul) | 2
+mapinc = partial(map) | inc
 
 # pipe
 pipe(1) | float | str | list | done    # == ['1', '.', '0']
-pipe(2) | inc | done                   # == inc(2)
-pipe(2) | inc | double | done          # == double(inc(2))
+pipe(2) | inc | done                   # == 3
+pipe(2) | inc | double | done          # == 6
+pipe([1,2,3]) | mapinc | sum | done    # == 9
 
 # compose
 newfn = compose(inc) | double
