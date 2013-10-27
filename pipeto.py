@@ -105,7 +105,7 @@ def compose(fn):
     if isinstance(fn, _Compose):
         return fn
     return _Compose(fn)
-composalbe = compose
+composable = compose
 
 
 def partial(fn):
