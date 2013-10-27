@@ -17,7 +17,8 @@ API:
 
     - compose(fn)
       use pipe to compose functions. `composalbe` is an alias of `compose`,
-      in case you may want to use it as a decorator.
+      in case you may want to use it as a decorator `composable` seems make
+      more sense.
       @param: fn {callable}
 
       e.g. :
@@ -30,7 +31,8 @@ API:
       chars = tostr | list
 
     - partial(fn)
-      use pipe to make a function a partial application.
+      use pipe to make a function a partial application. partialable is an
+      alias.
       @param: fn {callable}
 
       e.g.:
