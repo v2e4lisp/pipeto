@@ -23,26 +23,19 @@ Compose functions. Can be used as a decorator.
 @alias : composable  
 @param : fn {callable}
 
-* `partial(fn)`  
-make a function a partial application. Can be used as a decorator if you like.  
-@alias : partialable  
-@param : fn {callable}
-
 ## example
 ```python
 from pipeto import *
 import operator as op
 
-# partial
-inc = partial(op.add) | 1
-double = partial(op.mul) | 2
-mapinc = partial(map) | inc
+inc = lambda x: x + 1
+double = lambda x: x + x
 
 # pipe
 pipe(1) | float | str | list | done    # == ['1', '.', '0']
 pipe(2) | inc | done                   # == 3
 pipe(2) | inc | double | done          # == 6
-pipe([1,2,3]) | mapinc | sum | done    # == 9
+pipe([1,2,3]) | sum | done             # == 6
 
 # compose
 newfn = compose(inc) | double

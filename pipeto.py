@@ -29,22 +29,6 @@ API:
       def tostr(x):
           return str(x)
       chars = tostr | list
-
-    - partial(fn)
-      use pipe to make a function a partial application. partialable is an
-      alias.
-      @param: fn {callable}
-
-      e.g.:
-      def isum(*args): return sum(args)
-      sum6 = partial(sum) | 1 | 2 | 3
-      sum6(4) # 10
-
-      mapinc = map | partial(lambda x: x+1)
-      # [2,3,4]
-      mapinc([1,2,3])
-      pipe([1,2,3]) | mapinc | done
-
 """
 
 class _Compose(object):
@@ -63,24 +47,6 @@ class _Compose(object):
         for f in self.fns[1:]:
             init = f(init)
         return init
-
-
-class _Partial(object):
-    def __init__(self, fn):
-        self.fn = fn
-        self.args = []
-        self.kwargs = {}
-
-    def __or__(self, *args, **kwargs):
-        self.args.extend(list(args))
-        self.kwargs.update(kwargs)
-        return self
-
-    def __call__(self, *args, **kwargs):
-        args = self.args + list(args)
-        kwargs = dict(self.kwargs, **kwargs)
-        return self.fn(*args, **kwargs)
-
 
 class _Pipe(object):
     def __init__(self, val):
@@ -106,10 +72,3 @@ def compose(fn):
         return fn
     return _Compose(fn)
 composable = compose
-
-
-def partial(fn):
-    if isinstance(fn, _Partial):
-        return fn
-    return _Partial(fn)
-partialable = partial
