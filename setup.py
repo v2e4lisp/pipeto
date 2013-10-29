@@ -9,8 +9,8 @@ def readme():
 if __name__ == '__main__':
     setup(
         name = 'pipeto',
-        version = '0.1.1',
-        description = 'linux pipe style for python',
+        version = '0.2.1',
+        description = 'command line pipe style for python',
         long_description = readme(),
         author = "Yan Wenjun",
         author_email = "mylastnameisyan@gmail.com",
